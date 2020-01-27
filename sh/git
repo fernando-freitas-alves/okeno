@@ -1,0 +1,4 @@
+#!/bin/bash
+
+gnome-shel
+/usr/bin/git "${@:2}"

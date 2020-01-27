@@ -1,0 +1,22 @@
+#!/bin/bash
+
+arg=("-dog" "-sakura" "-tomoyo" "-tora" " ")
+color=("red" "green" "yellow" "blue" "white" "purple" "black")
+rv=(" " "-rv")
+random=$(shuf -i 1-10 -n 1)
+
+for index in $(seq 1 $random) ;do
+    if [ $index -gt 8 ]; then
+        m=$(shuf -i 0-4 -n 1)
+        b=$(shuf -i 0-6 -n 1)
+        f=$(shuf -i 0-6 -n 1)
+        i=$(shuf -i 0-1 -n 1)
+        speed=$(shuf -i 1-48 -n 1)
+        idle=$(shuf -i 1-48 -n 1)
+        nohup monit ${arg[$m]} -speed $speed -idle $idle -bg ${color[$b]} -fg ${color[$f]} ${rv[$i]} > /dev/null 2>&1 & disown
+        pid=$!
+        t=$(shuf -i 3-50 -n 1)
+        nohup sh -c "sleep $t ; kill -9 $pid" > /dev/null 2>&1 & disown 
+    fi
+done
+
